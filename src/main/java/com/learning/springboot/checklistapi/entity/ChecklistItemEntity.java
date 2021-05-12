@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 @Data
 @Entity(name="ChecklistItem")
@@ -24,9 +24,9 @@ public class ChecklistItemEntity extends BaseEntity{
 
     private Boolean isCompleted;
 
-    private LocalTime deadline;
+    private LocalDate deadline;
 
-    private LocalTime postedDate;
+    private LocalDate postedDate;
 
     @ManyToOne
     private CategoryEntity category;
