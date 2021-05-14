@@ -6,18 +6,23 @@ import com.learning.springboot.checklistapi.service.ChecklistItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.ValidationException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@RestController("/api/v1/checklist-items")
+@RestController
+@RequestMapping("/v1/api/checklist-items")
 public class ChecklistItemController {
 
     private ChecklistItemService checklistItemService;
@@ -47,6 +52,10 @@ public class ChecklistItemController {
 
     @PutMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateChecklistItem(@RequestBody ChecklistItemDTO checklistItemDTO) {
+
+        if(!StringUtils.hasText(checklistItemDTO.getGuid())){
+            throw new ValidationException("Checklist item guid cannot be null or empty");
+        }
         this.checklistItemService.updateChecklistItem(checklistItemDTO.getGuid(),
                 checklistItemDTO.getDescription(), checklistItemDTO.getIsCompleted(),
                 checklistItemDTO.getDeadline(), checklistItemDTO.getCategoryGuid());
