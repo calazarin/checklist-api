@@ -3,6 +3,9 @@ package com.learning.springboot.checklistapi.controller;
 import com.learning.springboot.checklistapi.dto.ChecklistItemDTO;
 import com.learning.springboot.checklistapi.entity.ChecklistItemEntity;
 import com.learning.springboot.checklistapi.service.ChecklistItemService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +34,10 @@ public class ChecklistItemController {
         this.checklistItemService = checklistItemService;
     }
 
+    @Operation(description = "Retrieves all checklist items")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found all checklist items")
+    })
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ChecklistItemDTO>> getAllChecklistItems() {
 
@@ -41,6 +48,11 @@ public class ChecklistItemController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
+    @Operation(description = "Inserts a new checklist item")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Created new checklist item"),
+            @ApiResponse(responseCode = "422", description = "Provided category guid was not found")
+    })
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createNewChecklistItem(@RequestBody ChecklistItemDTO checklistItemDTO) {
 
