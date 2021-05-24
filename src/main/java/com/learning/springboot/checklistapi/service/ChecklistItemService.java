@@ -87,6 +87,7 @@ public class ChecklistItemService {
         checklistItemEntity.setDeadline(deadline);
         checklistItemEntity.setPostedDate(LocalDate.now());
         checklistItemEntity.setCategory(retrievedCategory);
+        checklistItemEntity.setIsCompleted(isCompleted);
 
         log.debug("Adding new checklist item [ checklistItem = {} ]", checklistItemEntity);
 
@@ -118,5 +119,19 @@ public class ChecklistItemService {
         log.debug("Deleting checklist item [ guid ={} ]", guid);
 
         this.checklistItemRepository.delete(retrievedItem);
+    }
+
+    public void updateIsCompleteStatus(String guid, boolean isComplete) {
+        if(!StringUtils.hasText(guid)){
+            throw new IllegalArgumentException("Guid cannot be null or empty");
+        }
+        ChecklistItemEntity retrievedItem = this.checklistItemRepository.findByGuid(guid)
+                .orElseThrow(() -> new ResourceNotFoundException("Checklist item not found"));
+
+        log.debug("Updating checklist item completed status [ guid ={}, isCompete={} ]", guid, isComplete);
+
+        retrievedItem.setIsCompleted(isComplete);
+
+        this.checklistItemRepository.save(retrievedItem);
     }
 }

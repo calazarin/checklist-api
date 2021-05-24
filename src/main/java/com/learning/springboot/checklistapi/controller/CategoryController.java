@@ -1,6 +1,7 @@
 package com.learning.springboot.checklistapi.controller;
 
 import com.learning.springboot.checklistapi.dto.CategoryDTO;
+import com.learning.springboot.checklistapi.dto.NewResourceDTO;
 import com.learning.springboot.checklistapi.entity.CategoryEntity;
 import com.learning.springboot.checklistapi.service.CategoryService;
 import org.springframework.http.HttpStatus;
@@ -43,11 +44,11 @@ public class CategoryController {
     }
 
     @PostMapping(value ="", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> addNewCategory(@RequestBody CategoryDTO categoryDTO){
+    public ResponseEntity<NewResourceDTO> addNewCategory(@RequestBody CategoryDTO categoryDTO){
 
         CategoryEntity newCategory = this.categoryService.addNewCategory(categoryDTO.getName());
 
-        return new ResponseEntity<>(newCategory.getGuid(), HttpStatus.CREATED);
+        return new ResponseEntity<>(new NewResourceDTO(newCategory.getGuid()), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
