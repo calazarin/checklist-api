@@ -42,7 +42,7 @@ public class CategoryService {
     }
 
     public CategoryEntity updateCategory(String guid, String name){
-        if(guid == null || !StringUtils.hasText(name)){
+        if(!StringUtils.hasText(guid) || !StringUtils.hasText(name)){
             throw new IllegalArgumentException("Invalid parameters provided to update a category");
         }
 
