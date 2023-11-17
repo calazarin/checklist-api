@@ -63,7 +63,7 @@ public class ChecklistItemService {
             retrievedItem.setDeadline(deadline);
         }
 
-        if(!StringUtils.hasText(categoryGuid)){
+        if(StringUtils.hasText(categoryGuid)){
             CategoryEntity retrievedCategory = this.categoryRepository.findByGuid(categoryGuid)
                     .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
             retrievedItem.setCategory(retrievedCategory);
