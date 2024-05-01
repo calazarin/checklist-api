@@ -17,14 +17,14 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public final ResponseEntity<Object> handleResourceNotFoundException(Exception ex, WebRequest request) throws Exception {
-        log.error("An error happened to call API: {}", ex);
+        log.error("An error happened to call API: " + ex.getMessage(), ex);
         return new ResponseEntity<>(new ExceptionalResponse(LocalDateTime.now(), ex.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY),
                 HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(ValidationException.class)
     public final ResponseEntity<ExceptionalResponse> handleValidationException(ValidationException validationException){
-        log.error("An validation error happened to call API: {}", validationException);
+        log.error("An validation error happened to call API: " + validationException.getMessage(), validationException);
         return new ResponseEntity<>(new ExceptionalResponse(LocalDateTime.now(), validationException.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY),
                 HttpStatus.UNPROCESSABLE_ENTITY);
     }
