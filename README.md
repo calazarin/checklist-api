@@ -16,3 +16,8 @@ Para rodar a API na AWS é necessário contruí-la utilizando o profile do Maven
 
 1. Construa a aplicação com o seguinte comando: `mvn clean install -Paws -DprofileIdEnabled=true`
 2. Faça o deploy da aplicação e inclua nas variáveis de ambiente o profile do Spring como 'aws'.
+
+## Versão Atualizada
+
+Caso queria uma versão atualizada dessa API utilizando Java 17, SpringBoot 3 e Gradle, acesse
+https://github.com/calazarin/checklist-api-2
